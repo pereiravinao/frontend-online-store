@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import InitialMsg from './components/InitialMsg';
 import ButtonListCart from './components/ButtonListCart';
+import CartItems from './pages/CartItems';
 
 class App extends Component {
   render() {
@@ -10,11 +11,11 @@ class App extends Component {
       <main>
         <BrowserRouter>
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <ButtonListCart />
               <InitialMsg />
-              </Route>
-            <Route path="/cart-itens">
+            </Route>
+            <Route path="/cart-items">
               <CartItems />
             </Route>
           </Switch>
