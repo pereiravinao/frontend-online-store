@@ -6,13 +6,11 @@ import '../icons/icons.css';
 export default class ButtonListCart extends React.Component {
   render() {
     return (
-      <div>
-        <button type="button">
-          <Link data-testid="shopping-cart-button" to="/cart-items">
-            <img className="iconCart" src={ ICON_CART } alt="Carrinho de Compras" />
-          </Link>
-        </button>
-      </div>
+      <button type="button">
+        <Link data-testid="shopping-cart-button" to="/cart-items">
+          <img className="iconCart" src={ ICON_CART } alt="Carrinho de Compras" />
+        </Link>
+      </button>
     );
   }
 }
