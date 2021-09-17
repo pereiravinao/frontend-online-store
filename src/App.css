@@ -8,12 +8,14 @@ main {
 
 .search-area {
   margin: auto;
+  padding: 30px;
 }
 
 .categories-aside {
   border: groove darkgrey;
-  padding: 5px;
   margin: 10px;
+  padding: 5px;
+  position: absolute;
 }
 
 .categories-item {

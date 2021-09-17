@@ -21,7 +21,7 @@ class App extends Component {
       .then((items) => this.setState({
         categoriesBar: items,
         loaded: true,
-      }))
+      }));
   }
 
   render() {
@@ -30,13 +30,16 @@ class App extends Component {
       <main>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" render={ (props) =>
-              <>
-                { loaded && <CategoriesBar {...props} items={ categoriesBar }/> }
-                <InitialMsg />
-                <ButtonListCart />
-              </>
-            } />
+            <Route
+              exact
+              path="/"
+              render={ (props) => (
+                <>
+                  { loaded && <CategoriesBar { ...props } items={ categoriesBar } /> }
+                  <InitialMsg />
+                  <ButtonListCart />
+                </>) }
+            />
             <Route path="/cart-items">
               <CartItems />
             </Route>
