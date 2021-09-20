@@ -6,6 +6,7 @@ import ButtonListCart from './components/ButtonListCart';
 import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
 import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import ListProducts from './components/ListProducts';
 
 class App extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class App extends Component {
     this.state = {
       loaded: false,
       categoriesBar: [],
-      serched: false,
+      searched: false,
       searchResults: [],
     };
   }
@@ -35,7 +36,7 @@ class App extends Component {
   }
 
   render() {
-    const { categoriesBar, loaded } = this.state;
+    const { categoriesBar, loaded, searched, searchResults } = this.state;
     return (
       <main>
         <BrowserRouter>
@@ -43,12 +44,21 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={ (props) => (
+              render={ () => (
                 <>
-                  { loaded && <CategoriesBar { ...props } items={ categoriesBar } /> }
-                  <InitialMsg callbck={ this.searchItems } condition={  } />
-                  <ListProducts />
-                  <ButtonListCart />
+                  <div>
+                    { loaded && <CategoriesBar
+                      items={ categoriesBar }
+                      callback={ this.searchItems }
+                    /> }
+                  </div>
+                  <div>
+                    <nav>
+                      <InitialMsg callback={ this.searchItems } condition={ searched } />
+                      <ButtonListCart />
+                    </nav>
+                    { searched && <ListProducts searchResults={ searchResults } /> }
+                  </div>
                 </>) }
             />
             <Route path="/cart-items">
