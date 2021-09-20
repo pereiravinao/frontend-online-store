@@ -1,17 +1,63 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class InitialMsg extends Component {
-  render() {
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      valueQuery: '',
+    };
+  }
+
+  handleChange(event) {
+    this.setState({
+      valueQuery: event.target.value,
+    });
+  }
+
+  handleClick() {
+    const { callback } = this.props;
+    const { valueQuery } = this.state;
+    callback('', valueQuery);
+  }
+
+  mensagemInicial() {
     return (
-      <section className="search-area">
-        <div>
-          <input type="text" />
-          <button type="button">Pesquisar</button>
-        </div>
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-      </section>
+      <p data-testid="home-initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria.
+      </p>
+    );
+  }
+
+  render() {
+    const { valueQuery } = this.state;
+    return (
+      <>
+        <section className="search-area">
+          <div>
+            <input
+              type="text"
+              data-testid="query-input"
+              value={ valueQuery }
+              onChange={ this.handleChange }
+            />
+            <button
+              type="button"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              Pesquisar
+            </button>
+          </div>
+        </section>
+        <div>{ this.mensagemInicial() }</div>
+      </>
     );
   }
 }
+
+InitialMsg.propTypes = {
+  callback: PropTypes.func.isRequired,
+};
