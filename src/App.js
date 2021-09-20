@@ -6,6 +6,7 @@ import ButtonListCart from './components/ButtonListCart';
 import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
 import { getCategories } from './services/api';
+import Product from './pages/Product';
 
 class App extends Component {
   constructor() {
@@ -42,6 +43,9 @@ class App extends Component {
             />
             <Route path="/cart-items">
               <CartItems />
+            </Route>
+            <Route path="/Product/:id">
+              <Product />
             </Route>
           </Switch>
         </BrowserRouter>
