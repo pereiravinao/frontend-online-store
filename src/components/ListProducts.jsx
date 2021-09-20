@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 export default class ListProducts extends Component {
   render() {
     const { searchResults } = this.props;
-    // console.log(searchResults);
     return (
       <section className="list-products">
         { searchResults.length > 0 ? (
