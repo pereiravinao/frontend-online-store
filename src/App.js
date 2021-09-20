@@ -5,7 +5,7 @@ import InitialMsg from './components/InitialMsg';
 import ButtonListCart from './components/ButtonListCart';
 import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
-import { getCategories } from './services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 
 class App extends Component {
   constructor() {
@@ -13,6 +13,8 @@ class App extends Component {
     this.state = {
       loaded: false,
       categoriesBar: [],
+      serched: false,
+      searchResults: [],
     };
   }
 
@@ -21,6 +23,14 @@ class App extends Component {
       .then((items) => this.setState({
         categoriesBar: items,
         loaded: true,
+      }));
+  }
+
+  searchItems = (category, query) => {
+    getProductsFromCategoryAndQuery(category, query)
+      .then(({ results }) => this.setState({
+        searched: true,
+        searchResults: results,
       }));
   }
 
@@ -36,7 +46,8 @@ class App extends Component {
               render={ (props) => (
                 <>
                   { loaded && <CategoriesBar { ...props } items={ categoriesBar } /> }
-                  <InitialMsg />
+                  <InitialMsg callbck={ this.searchItems } condition={  } />
+                  <ListProducts />
                   <ButtonListCart />
                 </>) }
             />

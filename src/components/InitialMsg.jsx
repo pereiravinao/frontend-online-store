@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 
 export default class InitialMsg extends Component {
   render() {
+    umaFunction = () => {
+      const { state: { query }, props: { callback } } = this;
+      callback('', query);
+    };
+
     return (
       <section className="search-area">
         <div>
