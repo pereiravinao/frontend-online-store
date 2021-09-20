@@ -44,12 +44,21 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={ (props) => (
+              render={ () => (
                 <>
-                  { loaded && <CategoriesBar { ...props } items={ categoriesBar } /> }
-                  <InitialMsg callback={ this.searchItems } condition={ searched } />
-                  <ButtonListCart />
-                  <ListProducts searchResults={ searchResults } />
+                  <div>
+                    { loaded && <CategoriesBar
+                      items={ categoriesBar }
+                      callback={ this.searchItems }
+                    /> }
+                  </div>
+                  <div>
+                    <nav>
+                      <InitialMsg callback={ this.searchItems } condition={ searched } />
+                      <ButtonListCart />
+                    </nav>
+                    { searched && <ListProducts searchResults={ searchResults } /> }
+                  </div>
                 </>) }
             />
             <Route path="/cart-items">

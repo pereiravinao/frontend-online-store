@@ -32,7 +32,7 @@ export default class InitialMsg extends Component {
   }
 
   render() {
-    const { valueQuery } = this.state;
+    const { state: { valueQuery }, props: { condition } } = this;
     return (
       <>
         <section className="search-area">
@@ -52,7 +52,7 @@ export default class InitialMsg extends Component {
             </button>
           </div>
         </section>
-        <div>{ this.mensagemInicial() }</div>
+        { !condition && <div>{ this.mensagemInicial() }</div> }
       </>
     );
   }
@@ -60,4 +60,5 @@ export default class InitialMsg extends Component {
 
 InitialMsg.propTypes = {
   callback: PropTypes.func.isRequired,
+  condition: PropTypes.bool.isRequired,
 };
