@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class CartItems extends React.Component {
   render() {
-    const { itemsAdd } = this.props;
+    const { itemsAdd, callback } = this.props;
     return (
       <div>
         { itemsAdd.length === 0
@@ -11,12 +11,39 @@ export default class CartItems extends React.Component {
           : (
             <div>
               <ol>
-                {itemsAdd.map(({ thumbnail, id, title, price, quantity }) => (
-                  <li key={ id }>
-                    <h3 data-testid="shopping-cart-product-name">{ title }</h3>
-                    <img src={ thumbnail } alt={ title } />
-                    <p>{ price }</p>
-                    <h4 data-testid="shopping-cart-product-quantity">{ quantity }</h4>
+                {itemsAdd.map((objectItem) => (
+                  <li key={ objectItem.id }>
+                    <div>
+                      <h3 data-testid="shopping-cart-product-name">
+                        { objectItem.title }
+                      </h3>
+                      <img src={ objectItem.thumbnail } alt={ objectItem.title } />
+                      <p>{ objectItem.price }</p>
+                      <div>
+                        <button
+                          data-testid="product-increase-quantity"
+                          type="button"
+                          onClick={ () => callback(objectItem) }
+                        >
+                          +
+                        </button>
+                        <h4
+                          data-testid="shopping-cart-product-quantity"
+                        >
+                          { objectItem.quantity }
+                        </h4>
+                        { objectItem.quantity <= 1
+                          ? ''
+                          : (
+                            <button
+                              data-testid="product-decrease-quantity"
+                              type="button"
+                              onClick={ () => callback(objectItem, true) }
+                            >
+                              -
+                            </button>)}
+                      </div>
+                    </div>
                   </li>))}
               </ol>
             </div>)}
@@ -29,4 +56,5 @@ CartItems.propTypes = {
   itemsAdd: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
+  callback: PropTypes.func.isRequired,
 };

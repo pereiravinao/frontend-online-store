@@ -31,13 +31,13 @@ class App extends Component {
       }));
   }
 
-  handleClick = ({ title, thumbnail, id, price }) => {
+  handleClick = ({ title, thumbnail, id, price }, operator) => {
     const { getProduct } = this.state;
     let newItem;
 
     if (getProduct.some((product) => product.id === id)) {
       const product = getProduct.filter((prod) => prod.id === id)[0];
-      const quantity = product.quantity + 1;
+      const quantity = operator ? product.quantity - 1 : product.quantity + 1;
       newItem = { thumbnail, id, title, price, quantity };
     } else {
       newItem = { thumbnail, id, title, price, quantity: 1 };
@@ -90,7 +90,10 @@ class App extends Component {
                 </>) }
             />
             <Route path="/cart-items">
-              <CartItems itemsAdd={ getProduct } />
+              <CartItems
+                itemsAdd={ getProduct }
+                callback={ this.handleClick }
+              />
             </Route>
             <Route
               path="/product/:categoryId/:id"
