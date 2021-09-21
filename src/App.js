@@ -19,7 +19,7 @@ class App extends Component {
       categoriesBar: [],
       searched: false,
       searchResults: [],
-      getProduct: [],
+      getProducts: [],
     };
   }
 
@@ -31,22 +31,27 @@ class App extends Component {
       }));
   }
 
-  handleClick = ({ title, thumbnail, id, price }, operator) => {
-    const { getProduct } = this.state;
+  handleClick = ({ title, thumbnail, id, price }, decrease) => {
+    const { getProducts } = this.state;
     let newItem;
+    let newState;
 
-    if (getProduct.some((product) => product.id === id)) {
-      const product = getProduct.filter((prod) => prod.id === id)[0];
-      const quantity = operator ? product.quantity - 1 : product.quantity + 1;
-      newItem = { thumbnail, id, title, price, quantity };
+    if (getProducts.some((product) => product.id === id)) {
+      let index;
+      const product = getProducts.filter((prod, ind) => {
+        if (prod.id === id) index = ind;
+        return prod.id === id;
+      })[0];
+      const quantity = decrease ? product.quantity - 1 : product.quantity + 1;
+      newState = [...getProducts];
+      newState.splice(index, 1, { thumbnail, id, title, price, quantity });
     } else {
       newItem = { thumbnail, id, title, price, quantity: 1 };
+      newState = [...getProducts, newItem];
     }
 
-    const newState = getProduct.filter((it) => it.id !== id);
-
     this.setState({
-      getProduct: [...newState, newItem],
+      getProducts: newState,
     });
   }
 
@@ -60,7 +65,7 @@ class App extends Component {
   }
 
   render() {
-    const { categoriesBar, loaded, searched, searchResults, getProduct } = this.state;
+    const { categoriesBar, loaded, searched, searchResults, getProducts } = this.state;
     return (
       <main>
         <BrowserRouter>
@@ -91,7 +96,7 @@ class App extends Component {
             />
             <Route path="/cart-items">
               <CartItems
-                itemsAdd={ getProduct }
+                itemsAdd={ getProducts }
                 callback={ this.handleClick }
               />
             </Route>
