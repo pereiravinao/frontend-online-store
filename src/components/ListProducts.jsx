@@ -4,7 +4,7 @@ import ButtonMoreDetails from './ButtonMoreDetails';
 
 export default class ListProducts extends Component {
   render() {
-    const { searchResults, callback } = this.props;
+    const { searchResults } = this.props;
     return (
       <section className="list-products">
         {searchResults.length > 0 ? (
@@ -16,7 +16,6 @@ export default class ListProducts extends Component {
                 <p>{ product.price }</p>
                 <ButtonMoreDetails
                   productDetails={ product }
-                  callback={ callback }
                 />
               </li>
             ))}
@@ -30,5 +29,4 @@ ListProducts.propTypes = {
   searchResults: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
-  callback: PropTypes.func.isRequired,
 };

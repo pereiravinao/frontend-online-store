@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class ButtonMoreDetails extends React.Component {
   render() {
-    const { productDetails, callback } = this.props;
+    const { productDetails } = this.props;
     return (
       <Link
         to={ `product/${productDetails.category_id}/${productDetails.id}` }
@@ -12,7 +12,6 @@ class ButtonMoreDetails extends React.Component {
         <button
           type="button"
           data-testid="product-detail-link"
-          onClick={ () => callback(productDetails.category_id, '') }
         >
           Mais detalhes
         </button>
@@ -29,7 +28,6 @@ ButtonMoreDetails.propTypes = {
     category_id: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
-  callback: PropTypes.func.isRequired,
 };
 
 export default ButtonMoreDetails;

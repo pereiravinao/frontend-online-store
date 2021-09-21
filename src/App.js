@@ -62,7 +62,6 @@ class App extends Component {
                     { searched && (
                       <ListProducts
                         searchResults={ searchResults }
-                        callback={ this.searchItems }
                       />) }
                   </div>
                 </>) }
@@ -73,11 +72,9 @@ class App extends Component {
             <Route
               path="/product/:categoryId/:id"
               render={ (props) => (
-                searched
-                    && <Product
-                      { ...props }
-                      result={ searchResults }
-                    />
+                <Product
+                  { ...props }
+                />
               ) }
             />
           </Switch>

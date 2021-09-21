@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonListCart from '../components/ButtonListCart';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Product extends React.Component {
   constructor() {
@@ -22,9 +23,10 @@ class Product extends React.Component {
     search && !loading ? this.fethProduct() : this.setState({ loading: false })
   } */
 
-  fethProduct() {
-    const { match: { params: { id } }, result } = this.props;
-    const productDetails = result.filter((product) => product.id === id);
+  async fethProduct() {
+    const { match: { params: { id, categoryId } } } = this.props;
+    const result = await getProductsFromCategoryAndQuery(categoryId, '');
+    const productDetails = result.results.filter((product) => product.id === id);
     this.setState({ prodDetails: productDetails, loading: true });
   }
 
@@ -69,9 +71,9 @@ Product.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
+      categoryId: PropTypes.string,
     }),
   }).isRequired,
-  result: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Product;
