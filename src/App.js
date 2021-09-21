@@ -7,6 +7,7 @@ import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
 import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 import ListProducts from './components/ListProducts';
+import Product from './pages/Product';
 
 class App extends Component {
   constructor() {
@@ -28,6 +29,7 @@ class App extends Component {
   }
 
   searchItems = (category, query) => {
+    this.setState({ searched: false });
     getProductsFromCategoryAndQuery(category, query)
       .then(({ results }) => this.setState({
         searched: true,
@@ -57,13 +59,24 @@ class App extends Component {
                       <InitialMsg callback={ this.searchItems } condition={ searched } />
                       <ButtonListCart />
                     </nav>
-                    { searched && <ListProducts searchResults={ searchResults } /> }
+                    { searched && (
+                      <ListProducts
+                        searchResults={ searchResults }
+                      />) }
                   </div>
                 </>) }
             />
             <Route path="/cart-items">
               <CartItems />
             </Route>
+            <Route
+              path="/product/:categoryId/:id"
+              render={ (props) => (
+                <Product
+                  { ...props }
+                />
+              ) }
+            />
           </Switch>
         </BrowserRouter>
       </main>
