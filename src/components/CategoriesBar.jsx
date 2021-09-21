@@ -15,20 +15,29 @@ export default class CategoriesBar extends Component {
   //   // console.log(categories);
   // }
 
+  handleClick = ({ target: { id } }) => {
+    const { callback } = this.props;
+    callback(id, '');
+    // console.log(id);
+  }
+
   render() {
     const { categories } = this.state;
     return (
-      <div className="categories-aside">
+      <ul className="categories-aside" value="valor">
         Categorias:
         { categories.map(({ id, name }) => (
-          <div
+          <li
             className="categories-item"
+            id={ id }
+            onClick={ this.handleClick }
+            aria-hidden="true"
             key={ id }
             data-testid="category"
           >
-            <p>{ name }</p>
-          </div>)) }
-      </div>
+            <p id={ id }>{ name }</p>
+          </li>)) }
+      </ul>
     );
   }
 }

@@ -46,15 +46,25 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={ (props) => (
+              render={ () => (
                 <>
-                  { loaded && <CategoriesBar { ...props } items={ categoriesBar } />}
-                  <InitialMsg callback={ this.searchItems } condition={ searched } />
-                  <ButtonListCart />
-                  <ListProducts
-                    searchResults={ searchResults }
-                    callback={ this.searchItems }
-                  />
+                  <div>
+                    { loaded && <CategoriesBar
+                      items={ categoriesBar }
+                      callback={ this.searchItems }
+                    /> }
+                  </div>
+                  <div>
+                    <nav>
+                      <InitialMsg callback={ this.searchItems } condition={ searched } />
+                      <ButtonListCart />
+                    </nav>
+                    { searched && (
+                      <ListProducts
+                        searchResults={ searchResults }
+                        callback={ this.searchItems }
+                      />) }
+                  </div>
                 </>) }
             />
             <Route path="/cart-items">
@@ -63,16 +73,11 @@ class App extends Component {
             <Route
               path="/product/:categoryId/:id"
               render={ (props) => (
-                <>
-                  {
-                    searched
+                searched
                     && <Product
                       { ...props }
                       result={ searchResults }
-                      search={ searched }
                     />
-                  }
-                </>
               ) }
             />
           </Switch>

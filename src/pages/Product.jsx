@@ -24,14 +24,12 @@ class Product extends React.Component {
 
   fethProduct() {
     const { match: { params: { id } }, result } = this.props;
-    console.log(result);
     const productDetails = result.filter((product) => product.id === id);
     this.setState({ prodDetails: productDetails, loading: true });
   }
 
   render() {
     const { prodDetails, loading } = this.state;
-    if (loading) console.log(prodDetails[0].id, 'asdfas');
     return (
       loading
       && (

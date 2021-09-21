@@ -7,19 +7,20 @@ export default class ListProducts extends Component {
     const { searchResults, callback } = this.props;
     return (
       <section className="list-products">
-        <ul>
-          { searchResults.map((product) => (
-            <li key={ product.id } data-testid="product">
-              <h3>{ product.title }</h3>
-              <img src={ product.thumbnail } alt={ product.title } />
-              <p>{ product.price }</p>
-              <ButtonMoreDetails
-                productDetails={ product }
-                callback={ callback }
-              />
-            </li>
-          ))}
-        </ul>
+        {searchResults.length > 0 ? (
+          <ul>
+            { searchResults.map((product) => (
+              <li key={ product.id } data-testid="product">
+                <h3>{ product.title }</h3>
+                <img src={ product.thumbnail } alt={ product.title } />
+                <p>{ product.price }</p>
+                <ButtonMoreDetails
+                  productDetails={ product }
+                  callback={ callback }
+                />
+              </li>
+            ))}
+          </ul>) : <p>Nenhum produto foi encontrado</p>}
       </section>
     );
   }
