@@ -15,8 +15,7 @@ export default class ButtonAddCart extends React.Component {
         type="button"
         className="cart-button-add-cart"
         data-testid={ dataTestid }
-        onClick={ callback }
-        value={ productDetails.id }
+        onClick={ () => callback(productDetails) }
       >
         Adicionar ao Carrinho!
       </button>

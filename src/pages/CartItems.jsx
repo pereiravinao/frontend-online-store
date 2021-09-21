@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 export default class CartItems extends React.Component {
   render() {
     const { itemsAdd } = this.props;
-    const quantidadeAdd = 1;
-    console.log(itemsAdd);
     return (
       <div>
         { itemsAdd.length === 0
@@ -13,12 +11,12 @@ export default class CartItems extends React.Component {
           : (
             <div>
               <ol>
-                {itemsAdd.map((item) => (
-                  <li key={ item.id }>
-                    <h3 data-testid="shopping-cart-product-name">{item.title}</h3>
-                    <img src={ item.thumbnail } alt={ item.title } />
-                    <p>{item.price}</p>
-                    <h4 data-testid="shopping-cart-product-name">{ quantidadeAdd }</h4>
+                {itemsAdd.map(({ thumbnail, id, title, price, quantity }) => (
+                  <li key={ id }>
+                    <h3 data-testid="shopping-cart-product-name">{ title }</h3>
+                    <img src={ thumbnail } alt={ title } />
+                    <p>{ price }</p>
+                    <h4 data-testid="shopping-cart-product-quantity">{ quantity }</h4>
                   </li>))}
               </ol>
             </div>)}

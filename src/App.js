@@ -7,8 +7,7 @@ import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
 import {
   getCategories,
-  getProductsFromCategoryAndQuery,
-  getDetailsProductById } from './services/api';
+  getProductsFromCategoryAndQuery } from './services/api';
 import ListProducts from './components/ListProducts';
 import Product from './pages/Product';
 
@@ -32,11 +31,22 @@ class App extends Component {
       }));
   }
 
-  handleCLick = async (event) => {
+  handleClick = ({ title, thumbnail, id, price }) => {
     const { getProduct } = this.state;
-    const item = await getDetailsProductById(event.target.value);
+    let newItem;
+
+    if (getProduct.some((product) => product.id === id)) {
+      const product = getProduct.filter((prod) => prod.id === id)[0];
+      const quantity = product.quantity + 1;
+      newItem = { thumbnail, id, title, price, quantity };
+    } else {
+      newItem = { thumbnail, id, title, price, quantity: 1 };
+    }
+
+    const newState = getProduct.filter((it) => it.id !== id);
+
     this.setState({
-      getProduct: [...getProduct, item],
+      getProduct: [...newState, newItem],
     });
   }
 
@@ -73,7 +83,7 @@ class App extends Component {
                     </nav>
                     { searched && (
                       <ListProducts
-                        callback={ this.handleCLick }
+                        callback={ this.handleClick }
                         searchResults={ searchResults }
                       />) }
                   </div>
@@ -87,7 +97,7 @@ class App extends Component {
               render={ (props) => (
                 <Product
                   { ...props }
-                  callback={ this.handleCLick }
+                  callback={ this.handleClick }
                 />
               ) }
             />

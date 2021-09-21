@@ -10,15 +10,9 @@ export default class CategoriesBar extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const { categories } = this.state;
-  //   // console.log(categories);
-  // }
-
   handleClick = ({ target: { id } }) => {
     const { callback } = this.props;
     callback(id, '');
-    // console.log(id);
   }
 
   render() {
