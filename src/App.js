@@ -5,7 +5,10 @@ import InitialMsg from './components/InitialMsg';
 import ButtonListCart from './components/ButtonListCart';
 import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
-import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import {
+  getCategories,
+  getProductsFromCategoryAndQuery,
+  getDetailsProductById } from './services/api';
 import ListProducts from './components/ListProducts';
 import Product from './pages/Product';
 
@@ -17,6 +20,7 @@ class App extends Component {
       categoriesBar: [],
       searched: false,
       searchResults: [],
+      getProduct: [],
     };
   }
 
@@ -26,6 +30,14 @@ class App extends Component {
         categoriesBar: items,
         loaded: true,
       }));
+  }
+
+  handleCLick = async (event) => {
+    const { getProduct } = this.state;
+    const item = await getDetailsProductById(event.target.value);
+    this.setState({
+      getProduct: [...getProduct, item],
+    });
   }
 
   searchItems = (category, query) => {
@@ -38,7 +50,7 @@ class App extends Component {
   }
 
   render() {
-    const { categoriesBar, loaded, searched, searchResults } = this.state;
+    const { categoriesBar, loaded, searched, searchResults, getProduct } = this.state;
     return (
       <main>
         <BrowserRouter>
@@ -61,19 +73,21 @@ class App extends Component {
                     </nav>
                     { searched && (
                       <ListProducts
+                        callback={ this.handleCLick }
                         searchResults={ searchResults }
                       />) }
                   </div>
                 </>) }
             />
             <Route path="/cart-items">
-              <CartItems />
+              <CartItems itemsAdd={ getProduct } />
             </Route>
             <Route
               path="/product/:categoryId/:id"
               render={ (props) => (
                 <Product
                   { ...props }
+                  callback={ this.handleCLick }
                 />
               ) }
             />

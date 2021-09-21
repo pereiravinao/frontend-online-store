@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonListCart from '../components/ButtonListCart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import ButtonAddCart from '../components/ButtonAddCart';
 
 class Product extends React.Component {
   constructor() {
@@ -32,6 +33,7 @@ class Product extends React.Component {
 
   render() {
     const { prodDetails, loading } = this.state;
+    const { callback } = this.props;
     return (
       loading
       && (
@@ -58,6 +60,11 @@ class Product extends React.Component {
                 <li>Especificação 9</li>
                 <li>Especificação 10</li>
               </ol>
+              <ButtonAddCart
+                dataTestid="product-detail-add-to-cart"
+                productDetails={ prodDetails[0] }
+                callback={ callback }
+              />
             </div>
           </div>
         </section>
@@ -74,6 +81,7 @@ Product.propTypes = {
       categoryId: PropTypes.string,
     }),
   }).isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default Product;
