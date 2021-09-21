@@ -50,6 +50,31 @@ class App extends Component {
     });
   }
 
+  IncreaseOrDecrease = (ID, increase, decrease) => {
+    const { getProduct } = this.state;
+    let newItem;
+
+    const product = getProduct.filter((prod) => prod.id === ID)[0];
+    const { thumbnail, id, title, price, quantity } = product;
+    if (increase) {
+      const quantityp = product.quantity + 1;
+      newItem = { thumbnail, id, title, price, quantity: quantityp };
+    }
+    if (decrease) {
+      if (quantity > 1) {
+        const quantityp = product.quantity - 1;
+        newItem = { thumbnail, id, title, price, quantity: quantityp };
+      } else {
+        console.log('Opa!');
+      }
+      const newState = getProduct.filter((it) => it.id !== ID);
+
+      this.setState({
+        getProduct: [...newState, newItem],
+      });
+    }
+  }
+
   searchItems = (category, query) => {
     this.setState({ searched: false });
     getProductsFromCategoryAndQuery(category, query)
@@ -90,7 +115,10 @@ class App extends Component {
                 </>) }
             />
             <Route path="/cart-items">
-              <CartItems itemsAdd={ getProduct } />
+              <CartItems
+                itemsAdd={ getProduct }
+                ChangeQuant={ this.IncreaseOrDecrease }
+              />
             </Route>
             <Route
               path="/product/:categoryId/:id"
