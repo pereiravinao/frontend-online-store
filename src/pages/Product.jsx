@@ -19,11 +19,6 @@ class Product extends React.Component {
     this.fethProduct();
   }
 
-  /*  componentDidUpdate() {
-    const { props: { search }, state: { loading } } = this;
-    search && !loading ? this.fethProduct() : this.setState({ loading: false })
-  } */
-
   async fethProduct() {
     const { match: { params: { id, categoryId } } } = this.props;
     const result = await getProductsFromCategoryAndQuery(categoryId, '');
