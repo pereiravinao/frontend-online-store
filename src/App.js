@@ -5,7 +5,8 @@ import InitialMsg from './components/InitialMsg';
 import ButtonListCart from './components/ButtonListCart';
 import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
-import { getCategories } from './services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import ListProducts from './components/ListProducts';
 import Product from './pages/Product';
 
 class App extends Component {
@@ -14,6 +15,8 @@ class App extends Component {
     this.state = {
       loaded: false,
       categoriesBar: [],
+      searched: false,
+      searchResults: [],
     };
   }
 
@@ -25,8 +28,17 @@ class App extends Component {
       }));
   }
 
+  searchItems = (category, query) => {
+    this.setState({ searched: false });
+    getProductsFromCategoryAndQuery(category, query)
+      .then(({ results }) => this.setState({
+        searched: true,
+        searchResults: results,
+      }));
+  }
+
   render() {
-    const { categoriesBar, loaded } = this.state;
+    const { categoriesBar, loaded, searched, searchResults } = this.state;
     return (
       <main>
         <BrowserRouter>
@@ -36,17 +48,33 @@ class App extends Component {
               path="/"
               render={ (props) => (
                 <>
-                  { loaded && <CategoriesBar { ...props } items={ categoriesBar } /> }
-                  <InitialMsg />
+                  { loaded && <CategoriesBar { ...props } items={ categoriesBar } />}
+                  <InitialMsg callback={ this.searchItems } condition={ searched } />
                   <ButtonListCart />
+                  <ListProducts
+                    searchResults={ searchResults }
+                    callback={ this.searchItems }
+                  />
                 </>) }
             />
             <Route path="/cart-items">
               <CartItems />
             </Route>
-            <Route path="/Product/:id">
-              <Product />
-            </Route>
+            <Route
+              path="/product/:categoryId/:id"
+              render={ (props) => (
+                <>
+                  {
+                    searched
+                    && <Product
+                      { ...props }
+                      result={ searchResults }
+                      search={ searched }
+                    />
+                  }
+                </>
+              ) }
+            />
           </Switch>
         </BrowserRouter>
       </main>
