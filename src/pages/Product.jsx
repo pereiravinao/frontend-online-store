@@ -60,7 +60,6 @@ class Product extends React.Component {
                 <li>Especificação 7</li>
                 <li>Especificação 8</li>
                 <li>Especificação 9</li>
-                <li>Especificação 10</li>
               </ol>
               <ButtonAddCart
                 dataTestid="product-detail-add-to-cart"
