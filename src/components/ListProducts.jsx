@@ -15,6 +15,14 @@ export default class ListProducts extends Component {
                 <h3>{ product.title }</h3>
                 <img src={ product.thumbnail } alt={ product.title } />
                 <p>{ product.price }</p>
+                { product.shipping.free_shipping ? (
+                  <h4
+                    data-testid="free-shipping"
+                  >
+                    FRETE GRÁTIS
+                  </h4>
+                )
+                  : ''}
                 <ButtonMoreDetails
                   productDetails={ product }
                 />

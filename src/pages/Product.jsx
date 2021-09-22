@@ -49,6 +49,14 @@ class Product extends React.Component {
           <div>
             <img src={ prodDetails[0].thumbnail } alt={ prodDetails[0].title } />
             <div className="details-product">
+              { prodDetails[0].shipping.free_shipping ? (
+                <h4
+                  data-testid="free-shipping"
+                >
+                  FRETE GRÁTIS
+                </h4>
+              )
+                : ''}
               <h2>Especificações Técnicas</h2>
               <ol>
                 <li>Especificação 1</li>
