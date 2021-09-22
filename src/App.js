@@ -21,6 +21,7 @@ class App extends Component {
       searched: false,
       searchResults: [],
       getProducts: [],
+      allEvaluation: [],
     };
   }
 
@@ -32,7 +33,9 @@ class App extends Component {
       }));
   }
 
-  handleClick = ({ title, thumbnail, id, price }, decrease) => {
+  handleClick = (objectItem, decrease) => {
+    const { title, thumbnail, id,
+      price, available_quantity: available } = objectItem;
     const { getProducts } = this.state;
     let newItem;
     let newState;
@@ -45,9 +48,12 @@ class App extends Component {
       })[0];
       const quantity = decrease ? product.quantity - 1 : product.quantity + 1;
       newState = [...getProducts];
-      newState.splice(index, 1, { thumbnail, id, title, price, quantity });
+      newState.splice(index, 1,
+        { thumbnail, id, title, price, quantity, available_quantity: available });
     } else {
-      newItem = { thumbnail, id, title, price, quantity: 1 };
+      newItem = {
+        thumbnail, id, title, price, quantity: 1, available_quantity: available,
+      };
       newState = [...getProducts, newItem];
     }
 
@@ -65,8 +71,38 @@ class App extends Component {
       }));
   }
 
+  saveEvaluation = (id, valueForm) => {
+    // Pega apenas o array de comentarios de todos produtos
+    const { allEvaluation } = this.state;
+    // Pega valores do form
+    const { email, evaluation, comment } = valueForm;
+    // Procura se tem avaliações para esse produto que está sendo avaliado.
+    const evalProduct = allEvaluation.filter((elemnt) => elemnt.id === id);
+    // Se existir entra nessa condição;
+    if (evalProduct.length >= 1) {
+      // Pega o array dos comentarios desse produto {MLB1243497783: Array(2)}
+      const array = evalProduct[0].comments;
+      // Cria um novo array com as avaliações antigas e adiciona a nova avaliação
+      array.push({ email, evaluation, comment });
+      // Cria um novo objeto das avaliações do produto
+      const newEvaluation = { id, comments: array };
+      // Remove o objeto das avaliações do produto desatualizado
+      const atualizaState = allEvaluation.filter((elemnt) => elemnt.id !== id);
+      // cria um novo array avaliações de todos produtos atualizados
+      atualizaState.push(newEvaluation);// [...atualizaState, newEvaluation];
+      // salve esse array no state
+      this.setState({ allEvaluation: atualizaState });
+    } else {
+      // caso o produto não contém nenhuma avaliação, será criado um objeto para salvar as suas avaliações
+      const newEvaluation = { id, comments: [{ email, evaluation, comment }] };
+      allEvaluation.push(newEvaluation);
+      this.setState({ allEvaluation });
+    }
+  };
+
   render() {
-    const { categoriesBar, loaded, searched, searchResults, getProducts } = this.state;
+    const { categoriesBar, loaded, searched,
+      searchResults, getProducts, allEvaluation } = this.state;
     return (
       <main>
         <BrowserRouter>
@@ -107,6 +143,8 @@ class App extends Component {
                 <Product
                   { ...props }
                   callback={ this.handleClick }
+                  submitForm={ this.saveEvaluation }
+                  allEvaluation={ allEvaluation }
                 />
               ) }
             />
