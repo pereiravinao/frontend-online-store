@@ -36,21 +36,18 @@ export default class CartItems extends React.Component {
                         >
                           +
                         </button>
-                        <h4
-                          data-testid="shopping-cart-product-quantity"
-                        >
+                        <h4 data-testid="shopping-cart-product-quantity">
                           { objectItem.quantity }
                         </h4>
-                        { objectItem.quantity <= 1
-                          ? ''
-                          : (
-                            <button
-                              data-testid="product-decrease-quantity"
-                              type="button"
-                              onClick={ () => callback(objectItem, true) }
-                            >
-                              -
-                            </button>)}
+
+                        <button
+                          data-testid="product-decrease-quantity"
+                          type="button"
+                          disabled={ objectItem.quantity < 2 }
+                          onClick={ () => callback(objectItem, true) }
+                        >
+                          -
+                        </button>
                       </div>
                     </div>
                   </li>))}
