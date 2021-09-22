@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ButtonListCart from '../components/ButtonListCart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonAddCart from '../components/ButtonAddCart';
+import EvaluationProduct from '../components/EvaluationProduct';
 
 class Product extends React.Component {
   constructor() {
@@ -28,7 +29,13 @@ class Product extends React.Component {
 
   render() {
     const { prodDetails, loading } = this.state;
-    const { callback } = this.props;
+    const { callback, submitForm, allEvaluation } = this.props;
+    const { match: { params: { id } } } = this.props;
+
+    let evaluations = [];
+    if (allEvaluation.length >= 1) {
+      evaluations = allEvaluation.filter((elem) => elem.id === id);
+    }
     return (
       loading
       && (
@@ -62,6 +69,20 @@ class Product extends React.Component {
               />
             </div>
           </div>
+          <div>
+            <h5>Avaliações</h5>
+            {
+              evaluations.length > 0
+                && evaluations[0].comments.map((ev) => (
+                  <div key={ ev.length }>
+                    <p>{ ev.email }</p>
+                    <p>{ ev.comment }</p>
+                    <p>{ ev.evaluation }</p>
+                  </div>
+                ))
+            }
+            <EvaluationProduct id={ id } submitForm={ submitForm } />
+          </div>
         </section>
       )
 
@@ -77,6 +98,8 @@ Product.propTypes = {
     }),
   }).isRequired,
   callback: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
+  allEvaluation: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Product;
