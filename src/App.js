@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import InitialMsg from './components/InitialMsg';
-import ButtonListCart from './components/ButtonListCart';
 import CartItems from './pages/CartItems';
 import CategoriesBar from './components/CategoriesBar';
 import {
@@ -11,6 +10,7 @@ import {
 import ListProducts from './components/ListProducts';
 import Product from './pages/Product';
 import Checkout from './pages/Checkout';
+import Header from './components/Header';
 
 class App extends Component {
   constructor() {
@@ -112,6 +112,7 @@ class App extends Component {
               path="/"
               render={ () => (
                 <>
+                  <Header />
                   <div>
                     { loaded && <CategoriesBar
                       items={ categoriesBar }
@@ -121,7 +122,6 @@ class App extends Component {
                   <div>
                     <nav>
                       <InitialMsg callback={ this.searchItems } condition={ searched } />
-                      <ButtonListCart />
                     </nav>
                     { searched && (
                       <ListProducts

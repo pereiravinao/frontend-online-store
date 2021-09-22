@@ -2,8 +2,14 @@
   text-align: center;
 }
 
+body {
+  background-color: #d8f3dc;
+  color: #091c15
+}
+
 main {
   display: flex;
+  margin-top: 15vh;
 }
 
 ul li {
