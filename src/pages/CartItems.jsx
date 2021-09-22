@@ -33,6 +33,8 @@ export default class CartItems extends React.Component {
                           data-testid="product-increase-quantity"
                           type="button"
                           onClick={ () => callback(objectItem) }
+                          disabled={ objectItem.quantity + 1
+                            > objectItem.available_quantity }
                         >
                           +
                         </button>

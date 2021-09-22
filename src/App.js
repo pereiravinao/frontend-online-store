@@ -33,7 +33,8 @@ class App extends Component {
       }));
   }
 
-  handleClick = ({ title, thumbnail, id, price }, decrease) => {
+  handleClick = (objectItem, decrease) => {
+    const { title, thumbnail, id, price } = objectItem;
     const { getProducts } = this.state;
     let newItem;
     let newState;
@@ -46,9 +47,23 @@ class App extends Component {
       })[0];
       const quantity = decrease ? product.quantity - 1 : product.quantity + 1;
       newState = [...getProducts];
-      newState.splice(index, 1, { thumbnail, id, title, price, quantity });
+      newState
+        .splice(index, 1, {
+          thumbnail,
+          id,
+          title,
+          price,
+          quantity,
+          available_quantity: objectItem.available_quantity });
+      console.log(newState);
     } else {
-      newItem = { thumbnail, id, title, price, quantity: 1 };
+      newItem = {
+        thumbnail,
+        id,
+        title,
+        price,
+        quantity: 1,
+        available_quantity: objectItem.available_quantity };
       newState = [...getProducts, newItem];
     }
 
