@@ -34,7 +34,8 @@ class App extends Component {
   }
 
   handleClick = (objectItem, decrease) => {
-    const { title, thumbnail, id, price } = objectItem;
+    const { title, thumbnail, id,
+      price, available_quantity: available } = objectItem;
     const { getProducts } = this.state;
     let newItem;
     let newState;
@@ -47,23 +48,12 @@ class App extends Component {
       })[0];
       const quantity = decrease ? product.quantity - 1 : product.quantity + 1;
       newState = [...getProducts];
-      newState
-        .splice(index, 1, {
-          thumbnail,
-          id,
-          title,
-          price,
-          quantity,
-          available_quantity: objectItem.available_quantity });
-      console.log(newState);
+      newState.splice(index, 1,
+        { thumbnail, id, title, price, quantity, available_quantity: available });
     } else {
       newItem = {
-        thumbnail,
-        id,
-        title,
-        price,
-        quantity: 1,
-        available_quantity: objectItem.available_quantity };
+        thumbnail, id, title, price, quantity: 1, available_quantity: available,
+      };
       newState = [...getProducts, newItem];
     }
 
@@ -111,9 +101,8 @@ class App extends Component {
   };
 
   render() {
-    const {
-      categoriesBar, loaded, searched, searchResults, getProducts, allEvaluation,
-    } = this.state;
+    const { categoriesBar, loaded, searched,
+      searchResults, getProducts, allEvaluation } = this.state;
     return (
       <main>
         <BrowserRouter>

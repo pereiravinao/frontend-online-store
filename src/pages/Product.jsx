@@ -24,7 +24,7 @@ class Product extends React.Component {
     const { match: { params: { id, categoryId } } } = this.props;
     const result = await getProductsFromCategoryAndQuery(categoryId, '');
     const productDetails = result.results.filter((product) => product.id === id);
-    this.setState({ prodDetails: productDetails, loading: true });
+    this.setState({ prodDetails: productDetails[0], loading: true });
   }
 
   render() {
@@ -44,12 +44,12 @@ class Product extends React.Component {
             <ButtonListCart />
           </div>
           <div>
-            <h1 data-testid="product-detail-name">{ prodDetails[0].title }</h1>
+            <h1 data-testid="product-detail-name">{ prodDetails.title }</h1>
           </div>
           <div>
-            <img src={ prodDetails[0].thumbnail } alt={ prodDetails[0].title } />
+            <img src={ prodDetails.thumbnail } alt={ prodDetails.title } />
             <div className="details-product">
-              { prodDetails[0].shipping.free_shipping ? (
+              { prodDetails.shipping.free_shipping ? (
                 <h4
                   data-testid="free-shipping"
                 >
@@ -57,21 +57,14 @@ class Product extends React.Component {
                 </h4>
               )
                 : ''}
-              <h2>Especificações Técnicas</h2>
-              <ol>
-                <li>Especificação 1</li>
-                <li>Especificação 2</li>
-                <li>Especificação 3</li>
-                <li>Especificação 4</li>
-                <li>Especificação 5</li>
-                <li>Especificação 6</li>
-                <li>Especificação 7</li>
-                <li>Especificação 8</li>
-                <li>Especificação 9</li>
-              </ol>
+              <h2>Especificações:</h2>
+              <ul>
+                { prodDetails.attributes.map(({ name, value_name: valueName }) => (
+                  <li key={ name }>{ `${name}: ${valueName || 'N/A'}` }</li>)) }
+              </ul>
               <ButtonAddCart
                 dataTestid="product-detail-add-to-cart"
-                productDetails={ prodDetails[0] }
+                productDetails={ prodDetails }
                 callback={ callback }
               />
             </div>

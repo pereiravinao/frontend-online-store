@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 class ButtonMoreDetails extends React.Component {
   render() {
-    const { productDetails } = this.props;
+    const { productDetails: { category_id: categoryId, id } } = this.props;
     return (
       <Link
-        to={ `product/${productDetails.category_id}/${productDetails.id}` }
+        to={ `product/${categoryId}/${id}` }
       >
         <button
           type="button"
