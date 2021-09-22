@@ -10,6 +10,7 @@ import {
   getProductsFromCategoryAndQuery } from './services/api';
 import ListProducts from './components/ListProducts';
 import Product from './pages/Product';
+import Checkout from './pages/Checkout';
 
 class App extends Component {
   constructor() {
@@ -143,6 +144,9 @@ class App extends Component {
                 />
               ) }
             />
+            <Route path="/checkout">
+              <Checkout cartItems={ getProducts } />
+            </Route>
           </Switch>
         </BrowserRouter>
       </main>

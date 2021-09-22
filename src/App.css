@@ -36,6 +36,37 @@ ul li {
   width: 50px;
 }
 
+.checkout {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-items {
+  border: solid thin black;
+  display: flex;
+  margin: 20px 50px;
+  max-width: 700px;
+  min-height: 150px;
+  min-width: 300px;
+  overflow-x: scroll;
+}
+
+.checkout-content {
+  border: solid thin black;
+  max-width: fit-content;
+  min-width: 150px;
+}
+
+.checkout-content img {
+  width: 100%;
+}
+
+.checkout input {
+  margin: 15px;
+  padding: 5px;
+  width: 350px;
+}
+
 button .iconCart {
   animation: App-logo-spin 10s infinite linear;
   width: 100%;
