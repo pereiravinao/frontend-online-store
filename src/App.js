@@ -31,6 +31,7 @@ class App extends Component {
         categoriesBar: items,
         loaded: true,
       }));
+    this.loadLocalStorage();
   }
 
   handleClick = (objectItem, decrease) => {
@@ -59,6 +60,8 @@ class App extends Component {
 
     this.setState({
       getProducts: newState,
+    }, () => {
+      localStorage.setItem('getProducts', JSON.stringify(newState));
     });
   }
 
@@ -100,6 +103,12 @@ class App extends Component {
     }
   };
 
+  loadLocalStorage() {
+    if (localStorage.getItem('getProducts')) {
+      this.setState({ getProducts: JSON.parse(localStorage.getItem('getProducts')) });
+    }
+  }
+
   render() {
     const { categoriesBar, loaded, searched,
       searchResults, getProducts, allEvaluation } = this.state;
@@ -121,7 +130,7 @@ class App extends Component {
                   <div>
                     <nav>
                       <InitialMsg callback={ this.searchItems } condition={ searched } />
-                      <ButtonListCart />
+                      <ButtonListCart items={ getProducts } />
                     </nav>
                     { searched && (
                       <ListProducts
@@ -145,6 +154,7 @@ class App extends Component {
                   callback={ this.handleClick }
                   submitForm={ this.saveEvaluation }
                   allEvaluation={ allEvaluation }
+                  items={ getProducts }
                 />
               ) }
             />
