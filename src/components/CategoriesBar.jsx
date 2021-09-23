@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/CategoriesBar.css';
 
 export default class CategoriesBar extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class CategoriesBar extends Component {
     const { categories } = this.state;
     return (
       <ul className="categories-aside" value="valor">
-        Categorias:
+        <p>Categorias: </p>
         { categories.map(({ id, name }) => (
           <li
             className="categories-item"
