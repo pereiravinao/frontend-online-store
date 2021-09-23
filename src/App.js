@@ -65,6 +65,13 @@ class App extends Component {
     });
   }
 
+  removeItemCart = (valueId) => {
+    const itemsStorage = JSON.parse(localStorage.getItem('getProducts'));
+    const itemsAtt = itemsStorage.filter(({ id }) => valueId !== id);
+    localStorage.setItem('getProducts', JSON.stringify(itemsAtt));
+    this.loadLocalStorage();
+  }
+
   searchItems = (category, query) => {
     this.setState({ searched: false });
     getProductsFromCategoryAndQuery(category, query)
@@ -144,6 +151,7 @@ class App extends Component {
               <CartItems
                 itemsAdd={ getProducts }
                 callback={ this.handleClick }
+                removeItemCart={ this.removeItemCart }
               />
             </Route>
             <Route
