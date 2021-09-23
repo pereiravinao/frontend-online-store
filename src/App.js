@@ -128,7 +128,7 @@ class App extends Component {
                       callback={ this.searchItems }
                     /> }
                   </div>
-                  <div>
+                  <div className="main-div">
                     <nav>
                       <InitialMsg callback={ this.searchItems } condition={ searched } />
                     </nav>

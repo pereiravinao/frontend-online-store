@@ -17,20 +17,159 @@ ul li {
 }
 
 .categories-div {
-  width: 25%;
+  min-width: 20%;
 }
 
+.main-div {
+  margin: 5px;
+  min-width: 70%;
+}
+
+/* Barra de pesquisa */
 .search-area {
-  margin: auto;
+  margin: 5px;
   padding: 30px;
+}
+
+.search-area > :nth-child( 1 ) {
+  padding: 5px;
+  width: 100%;
+}
+
+.search-area .search-input {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 0 2px #091c15;
+  font-size: larger;
+  margin: 5px 10px;
+  padding: 10px 15px;
+  width: 70%;
+}
+
+.search-area .search-input:focus {
+  outline: none;
+}
+
+.search-area .search-btn {
+  background-color: #b7e4c7;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 0 2px #091c15;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 3px;
+  padding: 10px 15px;
+}
+
+.search-area .search-btn:hover {
+  background-color: #84a98c;
+}
+
+.initial-msg {
+  font-size: larger;
+  margin: 30px auto;
+  text-align: center;
 }
 
 .cart-button {
   height: 50px;
   margin: 10px;
+  position: relative;
   width: 50px;
 }
 
+/* "Indicador" de quantidade no carrinho */
+.cart-button span {
+  background-color: darkgoldenrod;
+  border-radius: 50%;
+  font-size: medium;
+  font-weight: 600;
+  padding: 5px 10px;
+  position: absolute;
+  right: -25%;
+  top: 75%;
+}
+
+/* ↓ Início ListProducts style ↓ */
+.list-products {
+  display: flex;
+}
+
+.list-products ul {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  margin: 5px;
+}
+
+.list-products ul li {
+  align-items: center;
+  background-color: #dfece2;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #091c15;
+  display: flex;
+  flex: auto;
+  flex-flow: column;
+  height: 70vh;
+  justify-content: space-around;
+  margin: 5px;
+  padding: 5px 3px;
+  position: relative;
+  text-align: center;
+  width: 20%;
+}
+
+.list-products .product-img {
+  border-radius: 5px;
+  max-height: 50%;
+  width: 85%;
+}
+
+.product-price {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0.3px 0.3px 1px #d8f3dc;
+}
+
+.list-products ul li button {
+  background-color: #b7e4c7;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 2px #091c15;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 0 0 10px;
+  padding: 5px 10px;
+}
+
+.list-products ul li button:hover {
+  background-color: #84a98c;
+}
+
+.free-shipping {
+  animation: FreeShip 0.25s linear infinite;
+  margin: auto;
+  position: absolute;
+  text-shadow: 0.3px 0.3px 1.5px #091c15;
+  top: 60%;
+}
+
+@keyframes FreeShip {
+
+  0% {
+    color: darkgoldenrod;
+  }
+
+  50% {
+    color: darkred;
+  }
+
+  100% {
+    color: darkorange;
+  }
+}
+
+/* ↑ Final ListProducts style ↑ */
 .checkout {
   display: flex;
   flex-direction: column;
@@ -63,11 +202,11 @@ ul li {
 }
 
 button .iconCart {
-  animation: App-logo-spin 10s infinite linear;
-  width: 100%;
+  animation: Icon-spin 10s infinite linear;
+  width: 95%;
 }
 
-@keyframes App-logo-spin {
+@keyframes Icon-spin {
 
   from {
     transform: rotate(0deg);
