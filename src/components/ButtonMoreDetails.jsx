@@ -6,9 +6,7 @@ class ButtonMoreDetails extends React.Component {
   render() {
     const { productDetails: { category_id: categoryId, id } } = this.props;
     return (
-      <Link
-        to={ `product/${categoryId}/${id}` }
-      >
+      <Link to={ `product/${categoryId}/${id}` }>
         <button
           type="button"
           data-testid="product-detail-link"

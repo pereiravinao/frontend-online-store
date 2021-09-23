@@ -17,7 +17,7 @@ export default class ButtonAddCart extends React.Component {
         data-testid={ dataTestid }
         onClick={ () => callback(productDetails) }
       >
-        Adicionar ao Carrinho!
+        Adicionar ao Carrinho
       </button>
     );
   }

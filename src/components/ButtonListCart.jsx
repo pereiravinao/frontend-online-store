@@ -13,7 +13,8 @@ export default class ButtonListCart extends React.Component {
         <Link data-testid="shopping-cart-button" to="/cart-items">
           <img className="iconCart" src={ ICON_CART } alt="Carrinho de Compras" />
         </Link>
-        <span data-testid="shopping-cart-size">{ productTotal }</span>
+        { productTotal > 0
+          && <span data-testid="shopping-cart-size">{ productTotal }</span> }
       </button>
     );
   }

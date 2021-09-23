@@ -21,6 +21,7 @@ export default class InitialMsg extends Component {
     const { callback } = this.props;
     const { valueQuery } = this.state;
     callback('', valueQuery);
+    this.setState({ valueQuery: '' });
   }
 
   mensagemInicial() {
@@ -34,26 +35,26 @@ export default class InitialMsg extends Component {
   render() {
     const { state: { valueQuery }, props: { condition } } = this;
     return (
-      <>
-        <section className="search-area">
-          <div>
-            <input
-              type="text"
-              data-testid="query-input"
-              value={ valueQuery }
-              onChange={ this.handleChange }
-            />
-            <button
-              type="button"
-              data-testid="query-button"
-              onClick={ this.handleClick }
-            >
-              Pesquisar
-            </button>
-          </div>
-        </section>
-        { !condition && <div>{ this.mensagemInicial() }</div> }
-      </>
+      <section className="search-area">
+        <div>
+          <input
+            type="text"
+            className="search-input"
+            data-testid="query-input"
+            value={ valueQuery }
+            onChange={ this.handleChange }
+          />
+          <button
+            type="button"
+            className="search-btn"
+            data-testid="query-button"
+            onClick={ this.handleClick }
+          >
+            Pesquisar
+          </button>
+        </div>
+        { !condition && <div className="initial-msg">{ this.mensagemInicial() }</div> }
+      </section>
     );
   }
 }
