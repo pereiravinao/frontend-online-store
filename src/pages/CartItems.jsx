@@ -115,32 +115,37 @@ export default class CartItems extends React.Component {
                   </li>))}
               </ul>
               <div className="price-total">
-                <h2>
-                  {`Valor Total: ${Intl.NumberFormat('pt-br',
-                    { style: 'currency', currency: 'BRL' })
-                    .format(itemsAdd.map(({ price, quantity }) => price * quantity)
-                      .reduce((acc, cur) => (acc + cur), 0))}`}
-                </h2>
-                <Link to="/checkout">
-                  <button
-                    className="button-add-more-items"
-                    type="button"
-                    data-testid="checkout-products"
+                <div className="completed-shopping">
+                  <Link
+                    to="/"
                   >
-                    Finalizar Compra
-                  </button>
-                </Link>
+                    <button
+                      className="button-add-more-items"
+                      type="button"
+                    >
+                      Adicionar Mais Itens
+                    </button>
+                  </Link>
+                </div>
+                <div className="completed-shopping">
+                  <h2>
+                    {`Valor Total: ${Intl.NumberFormat('pt-br',
+                      { style: 'currency', currency: 'BRL' })
+                      .format(itemsAdd.map(({ price, quantity }) => price * quantity)
+                        .reduce((acc, cur) => (acc + cur), 0))}`}
+                  </h2>
+                  <Link to="/checkout">
+                    <button
+                      className="button-add-more-items"
+                      type="button"
+                      data-testid="checkout-products"
+                    >
+                      Finalizar Compra
+                    </button>
+                  </Link>
+                </div>
               </div>
-              <Link
-                to="/"
-              >
-                <button
-                  className="button-add-more-items"
-                  type="button"
-                >
-                  Adicionar Mais Itens
-                </button>
-              </Link>
+
             </div>)}
       </div>
     );
