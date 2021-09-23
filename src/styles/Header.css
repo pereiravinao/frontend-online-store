@@ -1,0 +1,26 @@
+header {
+  background-color: #52796f;
+  box-shadow: 0 0.5px 2px #091c15;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  text-shadow: 0.5px 0.5px 1px #d8f3dc;
+  top: 0;
+  width: 100%;
+}
+
+header .cart-button {
+  background-color: #cad2c5;
+  border-radius: 10%;
+  box-shadow: 0 0 1.5px #d8f3dc;
+}
+
+header .cart-button:hover {
+  box-shadow: 0 0 2.5px #d8f3dc;
+  opacity: 0.95;
+}
+
+header .cart-button:active {
+  box-shadow: 0 0 3px #d8f3dc;
+  opacity: 0.85;
+}

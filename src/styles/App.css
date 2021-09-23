@@ -2,32 +2,27 @@
   text-align: center;
 }
 
+body {
+  background-color: #d8f3dc;
+  color: #091c15;
+}
+
 main {
   display: flex;
+  margin-top: 15vh;
 }
 
 ul li {
   list-style: none;
 }
 
+.categories-div {
+  width: 25%;
+}
+
 .search-area {
   margin: auto;
   padding: 30px;
-}
-
-.categories-aside {
-  border: groove darkgrey;
-  margin: 10px;
-  padding: 5px;
-}
-
-.categories-item {
-  border: solid thin black;
-  padding: 5px 10px;
-}
-
-.categories-item:hover {
-  transform: scale(1.05);
 }
 
 .cart-button {
