@@ -24,6 +24,11 @@ export default class InitialMsg extends Component {
     this.setState({ valueQuery: '' });
   }
 
+  searchOnKeyDown = ({ keyCode }) => {
+    const key = 13;
+    if (keyCode === key) document.querySelector('button.search-btn').click();
+  }
+
   mensagemInicial() {
     return (
       <p data-testid="home-initial-message">
@@ -43,6 +48,7 @@ export default class InitialMsg extends Component {
             data-testid="query-input"
             value={ valueQuery }
             onChange={ this.handleChange }
+            onKeyDown={ this.searchOnKeyPress }
           />
           <button
             type="button"

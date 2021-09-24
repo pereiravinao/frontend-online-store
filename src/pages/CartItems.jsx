@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ICON_CART from '../icons/cart.svg';
-import Header from '../components/Header';
 import '../styles/CartItems.css';
 
 export default class CartItems extends React.Component {
@@ -23,8 +22,6 @@ export default class CartItems extends React.Component {
     const { itemsAdd, callback, removeItemCart } = this.props;
     return (
       <div className="cart-items">
-        <Header items={ itemsAdd } />
-
         <span className="cart-items-title">
           <img className="icon-cart" src={ ICON_CART } alt="Carrinho de Compras" />
           <h4>Carrinho de Compras</h4>
@@ -66,52 +63,54 @@ export default class CartItems extends React.Component {
                     >
                       { objectItem.title }
                     </h4>
-                    <span className="quantity">
-                      { objectItem.quantity > 1
-                        ? (
-                          <button
-                            className="moviment-quantity"
-                            data-testid="product-decrease-quantity"
-                            type="button"
-                            onClick={ () => {
-                              callback(objectItem, true);
-                            } }
-                          >
-                            -
-                          </button>)
-                        : (
-                          <button
-                            className="remove-item"
-                            type="button"
-                            onClick={ () => {
-                              removeItemCart(objectItem.id);
-                            } }
-                          >
-                            X
-                          </button>)}
+                    <div className="order-details">
+                      <span className="quantity">
+                        { objectItem.quantity > 1
+                          ? (
+                            <button
+                              className="moviment-quantity"
+                              data-testid="product-decrease-quantity"
+                              type="button"
+                              onClick={ () => {
+                                callback(objectItem, true);
+                              } }
+                            >
+                              -
+                            </button>)
+                          : (
+                            <button
+                              className="remove-item"
+                              type="button"
+                              onClick={ () => {
+                                removeItemCart(objectItem.id);
+                              } }
+                            >
+                              X
+                            </button>)}
 
-                      <h4
-                        className="text-quatity"
-                        data-testid="shopping-cart-product-quantity"
-                      >
-                        { objectItem.quantity }
+                        <h4
+                          className="text-quantity"
+                          data-testid="shopping-cart-product-quantity"
+                        >
+                          { objectItem.quantity }
+                        </h4>
+                        <button
+                          className="moviment-quantity"
+                          data-testid="product-increase-quantity"
+                          type="button"
+                          onClick={ () => { callback(objectItem); } }
+                          disabled={ objectItem.quantity + 1
+                              > objectItem.available_quantity }
+                        >
+                          +
+                        </button>
+                      </span>
+                      <h4 className="text-price-item">
+                        { Intl.NumberFormat('pt-br',
+                          { style: 'currency', currency: 'BRL' })
+                          .format(objectItem.price * objectItem.quantity) }
                       </h4>
-                      <button
-                        className="moviment-quantity"
-                        data-testid="product-increase-quantity"
-                        type="button"
-                        onClick={ () => { callback(objectItem); } }
-                        disabled={ objectItem.quantity + 1
-                            > objectItem.available_quantity }
-                      >
-                        +
-                      </button>
-                    </span>
-                    <h4 className="text-price-item">
-                      { Intl.NumberFormat('pt-br',
-                        { style: 'currency', currency: 'BRL' })
-                        .format(objectItem.price * objectItem.quantity) }
-                    </h4>
+                    </div>
                   </li>))}
               </ul>
               <div className="price-total">
@@ -131,8 +130,9 @@ export default class CartItems extends React.Component {
                   <h2>
                     {`Valor Total: ${Intl.NumberFormat('pt-br',
                       { style: 'currency', currency: 'BRL' })
-                      .format(itemsAdd.map(({ price, quantity }) => price * quantity)
-                        .reduce((acc, cur) => (acc + cur), 0))}`}
+                      .format(itemsAdd
+                        .reduce((acc, { price, quantity }) => (
+                          acc + (price * quantity)), 0))}` }
                   </h2>
                   <Link to="/checkout">
                     <button
