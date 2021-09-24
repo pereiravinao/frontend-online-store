@@ -49,16 +49,16 @@
   display: flex;
   font-size: 1.1em;
   margin: 20px;
-  padding: 20px;
   max-width: 500px;
+  padding: 20px;
 }
 
 .order-details {
   align-items: center;
   display: flex;
-  line-height: 0;
   flex-direction: column; /* Preço e Quantidade */
   justify-content: center;
+  line-height: 0;
 }
 
 .text-quantity {
