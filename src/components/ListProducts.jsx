@@ -22,7 +22,10 @@ export default class ListProducts extends Component {
                   src={ product.thumbnail }
                   alt={ product.title }
                 />
-                <p className="product-price">{ `R$ ${product.price.toFixed(2)}` }</p>
+                <p className="product-price">
+                  { Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' })
+                    .format(product.price) }
+                </p>
                 { product.shipping.free_shipping && (
                   <h4 className="free-shipping" data-testid="free-shipping">
                     FRETE GRÁTIS

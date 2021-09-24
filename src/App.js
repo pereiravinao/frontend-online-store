@@ -48,6 +48,7 @@ class App extends Component {
         return prod.id === id;
       })[0];
       const quantity = decrease ? product.quantity - 1 : product.quantity + 1;
+      if (quantity > available) return;
       newState = [...getProducts];
       newState.splice(index, 1,
         { thumbnail, id, title, price, quantity, available_quantity: available });
@@ -148,6 +149,7 @@ class App extends Component {
                 </>) }
             />
             <Route path="/cart-items">
+              <Header items={ getProducts } />
               <CartItems
                 itemsAdd={ getProducts }
                 callback={ this.handleClick }
