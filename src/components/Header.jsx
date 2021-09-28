@@ -9,7 +9,10 @@ export default class Header extends React.Component {
     return (
       <header>
         <h3>Bem Vindo!</h3>
-        <h2>Trybers Online Store</h2>
+        <div className="t-o-s">
+          <span className="tos-logo" />
+          <h2>Trybers Online Store</h2>
+        </div>
         <ButtonListCart items={ items } />
       </header>
     );

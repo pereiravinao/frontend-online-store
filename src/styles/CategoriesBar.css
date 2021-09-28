@@ -12,6 +12,7 @@
   position: fixed;
   text-align: center;
   text-shadow: 0.3px 0.2px 1px #d8f3dc;
+  top: 80px;
   z-index: 2;
 }
 

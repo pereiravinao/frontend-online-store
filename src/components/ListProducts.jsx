@@ -6,7 +6,7 @@ import ButtonAddCart from './ButtonAddCart';
 export default class ListProducts extends Component {
   render() {
     const { searchResults, callback } = this.props;
-    const maxLength = 50;
+    const maxLength = 45;
     return (
       <section className="list-products">
         {searchResults.length > 0 ? (
@@ -15,7 +15,7 @@ export default class ListProducts extends Component {
               <li key={ product.id } data-testid="product">
                 <h4>
                   { product.title.length > maxLength
-                    ? `${product.title.match(/.{50}/)[0]}...` : product.title }
+                    ? `${product.title.match(/.{45}/)[0]}...` : product.title }
                 </h4>
                 <img
                   className="product-img"

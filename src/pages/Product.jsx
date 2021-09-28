@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ButtonListCart from '../components/ButtonListCart';
+import '../styles/ProductDetails.css';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonAddCart from '../components/ButtonAddCart';
 import EvaluationProduct from '../components/EvaluationProduct';
+import Loading from '../components/Loading';
 
 class Product extends React.Component {
   constructor() {
@@ -24,70 +26,79 @@ class Product extends React.Component {
     const { match: { params: { id, categoryId } } } = this.props;
     const result = await getProductsFromCategoryAndQuery(categoryId, '');
     const productDetails = result.results.filter((product) => product.id === id);
-    this.setState({ prodDetails: productDetails[0], loading: true });
+    console.log(result, productDetails);
+    this.setState({
+      prodDetails: productDetails[0] || [],
+    }, () => this.setState({ loading: true }));
   }
 
   render() {
     const { prodDetails, loading } = this.state;
-    const { callback, submitForm, allEvaluation, items } = this.props;
+    const { callback, submitForm, allEvaluation } = this.props;
     const { match: { params: { id } } } = this.props;
 
     let evaluations = [];
     if (allEvaluation.length >= 1) {
       evaluations = allEvaluation.filter((elem) => elem.id === id);
     }
+    if (loading && prodDetails.length < 1) {
+      return (
+        <div>Desculpe. Não foi possível encontrar os detalhes deste produto.</div>
+      );
+    }
     return (
-      <section>
-        <div>
-          <ButtonListCart items={ items } />
-        </div>
-        {
-          loading
-          && (
-            <>
-              <div>
-                <h1 data-testid="product-detail-name">{ prodDetails.title }</h1>
-              </div>
-              <div>
-                <img src={ prodDetails.thumbnail } alt={ prodDetails.title } />
-                <div className="details-product">
-                  { prodDetails.shipping.free_shipping ? (
+      loading
+        ? (
+          <section className="product-details">
+            <Link className="back-details" to="/">↶</Link>
+            <div className="details-div-content">
+              <h1 data-testid="product-detail-name">
+                { prodDetails.title }
+              </h1>
+            </div>
+            <div className="details-div-content">
+              <div className="product-info-details">
+                <div>
+                  <h2>Especificações:</h2>
+                  <ul>
+                    { prodDetails.attributes.map(({ name, value_name: value }) => (
+                      <li key={ name }>{ `${name}: ${value || 'N/A'}` }</li>)) }
+                  </ul>
+                  { prodDetails.shipping.free_shipping && (
                     <h4
                       data-testid="free-shipping"
                     >
                       FRETE GRÁTIS
-                    </h4>
-                  )
-                    : ''}
-                  <h2>Especificações:</h2>
-                  <ul>
-                    { prodDetails.attributes.map(({ name, value_name: valueName }) => (
-                      <li key={ name }>{ `${name}: ${valueName || 'N/A'}` }</li>)) }
-                  </ul>
+                    </h4>) }
                   <ButtonAddCart
                     dataTestid="product-detail-add-to-cart"
                     productDetails={ prodDetails }
                     callback={ callback }
                   />
                 </div>
+                <img src={ prodDetails.thumbnail } alt={ prodDetails.title } />
               </div>
-              <div>
-                <h5>Avaliações</h5>
-                {
-                  evaluations.length > 0
-                    && evaluations[0].comments.map((ev) => (
-                      <div key={ ev.length }>
-                        <p>{ ev.email }</p>
-                        <p>{ ev.comment }</p>
-                        <p>{ ev.evaluation }</p>
-                      </div>
-                    ))
-                }
-                <EvaluationProduct id={ id } submitForm={ submitForm } />
-              </div>
-            </>)
-        }
-      </section>
+            </div>
+            <div className="details-div-content">
+              <h3>Avaliações</h3>
+              {
+                evaluations.length > 0
+                  ? evaluations[0].comments.map((ev) => (
+                    <div key={ ev.length } className="eval-coments">
+                      <h4>{ ev.email }</h4>
+                      <p>{ ev.comment }</p>
+                      <p>{ `Nota: ${ev.evaluation}` }</p>
+                    </div>
+                  )) : (
+                    <div className="eval-coments">
+                      Ainda não há avaliações para este item. Seja o primeiro!
+                    </div>
+                  )
+              }
+              <EvaluationProduct id={ id } submitForm={ submitForm } />
+            </div>
+          </section>) : <Loading />
+
     );
   }
 }
@@ -102,7 +113,6 @@ Product.propTypes = {
   callback: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
   allEvaluation: PropTypes.arrayOf(PropTypes.object).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Product;
