@@ -1,0 +1,123 @@
+.product-details {
+  background-color: #dfece2;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #091c15;
+  display: flex;
+  flex-flow: column;
+}
+
+.back-details {
+  background-color: #b7e4c7;
+  border-radius: 25px;
+  box-shadow: 0 0 2px 0.5px #091c15;
+  font-size: xx-large;
+  font-weight: 600;
+  line-height: 100%;
+  margin: 10px 0 -15px 10px;
+  padding: 4px 20px 0;
+  width: max-content;
+}
+
+.back-details:hover {
+  background-color: #b3dac1;
+  box-shadow: 0 0 2px 1px #091c15;
+}
+
+.product-details .details-div-content {
+  margin: 5px 15px;
+}
+
+.product-info-details {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.product-info-details li {
+  font-size: large;
+  margin: 5px 0;
+}
+
+.product-info-details img {
+  border: groove thick #354f52;
+  width: 35%;
+}
+
+.product-info-details .cart-button-add-cart {
+  background-color: #b7e4c7;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 2px #091c15;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 0 0 10px;
+  padding: 5px 10px;
+}
+
+.product-info-details .cart-button-add-cart:hover {
+  background-color: #9bb9a2;
+}
+
+.product-info-details div {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  width: 40%;
+}
+
+.eval-coments {
+  background-color: #a5d8c421;
+  border: groove;
+  margin: 5px;
+  max-width: 75%;
+  padding: 5px 10px;
+}
+
+.evaluation-form {
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #091c15;
+  display: flex;
+  flex-flow: column;
+  margin: 10px 5px;
+  padding: 10px;
+  width: 50%;
+}
+
+.evaluation-form > div {
+  margin: 5px;
+  width: 100%;
+}
+
+.evaluation-form .eval-radio-input {
+  margin-right: 15px;
+}
+
+.evaluation-form textarea {
+  height: 5rem;
+  resize: none;
+  width: 80%;
+}
+
+.evaluation-form button {
+  background-color: #d1dfd6;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #091c15;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 10px;
+  padding: 5px 35px;
+}
+
+.evaluation-form button:hover {
+  background-color: #c8d6cd;
+  box-shadow: 0 0 2px 0.5px #091c15;
+}
+
+.evaluation-form .eval-email {
+  padding: 5px 10px;
+  width: 75%;
+}

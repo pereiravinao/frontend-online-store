@@ -25,3 +25,16 @@ header .cart-button:active {
   box-shadow: 0 0 3px #d8f3dc;
   opacity: 0.85;
 }
+
+.tos-logo {
+  background-image: url('../logo_tos.png');
+  background-size: cover;
+  height: 65px;
+  margin: 5px 15px 5px 0;
+  width: 65px;
+}
+
+.t-o-s {
+  align-items: center;
+  display: flex;
+}

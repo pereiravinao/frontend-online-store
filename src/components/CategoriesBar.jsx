@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/CategoriesBar.css';
+import { Link } from 'react-router-dom';
 
 export default class CategoriesBar extends Component {
   constructor(props) {
@@ -22,16 +23,17 @@ export default class CategoriesBar extends Component {
       <ul className="categories-aside" value="valor">
         <p>Categorias: </p>
         { categories.map(({ id, name }) => (
-          <li
-            className="categories-item"
-            id={ id }
-            onClick={ this.handleClick }
-            aria-hidden="true"
-            key={ id }
-            data-testid="category"
-          >
-            <p id={ id }>{ name }</p>
-          </li>)) }
+          <Link to="/" key={ id }>
+            <li
+              className="categories-item"
+              id={ id }
+              onClick={ this.handleClick }
+              aria-hidden="true"
+              data-testid="category"
+            >
+              <p id={ id }>{ name }</p>
+            </li>
+          </Link>)) }
       </ul>
     );
   }

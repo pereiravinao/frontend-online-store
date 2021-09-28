@@ -11,6 +11,7 @@ import ListProducts from './components/ListProducts';
 import Product from './pages/Product';
 import Checkout from './pages/Checkout';
 import Header from './components/Header';
+import Loading from './components/Loading';
 
 class App extends Component {
   constructor() {
@@ -18,6 +19,7 @@ class App extends Component {
     this.state = {
       loaded: false,
       categoriesBar: [],
+      isLoading: false,
       searched: false,
       searchResults: [],
       getProducts: [],
@@ -74,51 +76,53 @@ class App extends Component {
   }
 
   searchItems = (category, query) => {
-    this.setState({ searched: false });
+    this.setState({ searched: false, isLoading: true });
     getProductsFromCategoryAndQuery(category, query)
       .then(({ results }) => this.setState({
         searched: true,
+        isLoading: false,
         searchResults: results,
       }));
   }
 
   saveEvaluation = (id, valueForm) => {
-    // Pega apenas o array de comentarios de todos produtos
     const { allEvaluation } = this.state;
-    // Pega valores do form
     const { email, evaluation, comment } = valueForm;
-    // Procura se tem avaliações para esse produto que está sendo avaliado.
     const evalProduct = allEvaluation.filter((elemnt) => elemnt.id === id);
-    // Se existir entra nessa condição;
+
     if (evalProduct.length >= 1) {
-      // Pega o array dos comentarios desse produto {MLB1243497783: Array(2)}
       const array = evalProduct[0].comments;
-      // Cria um novo array com as avaliações antigas e adiciona a nova avaliação
       array.push({ email, evaluation, comment });
-      // Cria um novo objeto das avaliações do produto
       const newEvaluation = { id, comments: array };
-      // Remove o objeto das avaliações do produto desatualizado
       const atualizaState = allEvaluation.filter((elemnt) => elemnt.id !== id);
-      // cria um novo array avaliações de todos produtos atualizados
-      atualizaState.push(newEvaluation);// [...atualizaState, newEvaluation];
-      // salve esse array no state
-      this.setState({ allEvaluation: atualizaState });
+      atualizaState.push(newEvaluation);
+      this.setState({ allEvaluation: atualizaState }, () => {
+        localStorage.setItem('evaluationStorage', JSON.stringify(allEvaluation));
+      });
     } else {
-      // caso o produto não contém nenhuma avaliação, será criado um objeto para salvar as suas avaliações
       const newEvaluation = { id, comments: [{ email, evaluation, comment }] };
       allEvaluation.push(newEvaluation);
-      this.setState({ allEvaluation });
+      this.setState({ allEvaluation }, () => {
+        localStorage.setItem('evaluationStorage', JSON.stringify(allEvaluation));
+      });
     }
   };
 
   loadLocalStorage() {
     if (localStorage.getItem('getProducts')) {
+      if (localStorage.getItem('evaluationStorage')) {
+        this.setState({
+          getProducts: JSON.parse(localStorage.getItem('getProducts')),
+          allEvaluation: JSON.parse(localStorage.getItem('evaluationStorage')),
+        });
+        return;
+      }
       this.setState({ getProducts: JSON.parse(localStorage.getItem('getProducts')) });
     }
   }
 
   render() {
-    const { categoriesBar, loaded, searched,
+    const { categoriesBar, loaded, searched, isLoading,
       searchResults, getProducts, allEvaluation } = this.state;
     return (
       <main>
@@ -140,6 +144,7 @@ class App extends Component {
                     <nav>
                       <InitialMsg callback={ this.searchItems } condition={ searched } />
                     </nav>
+                    { isLoading && <Loading /> }
                     { searched && (
                       <ListProducts
                         callback={ this.handleClick }
@@ -159,13 +164,27 @@ class App extends Component {
             <Route
               path="/product/:categoryId/:id"
               render={ (props) => (
-                <Product
-                  { ...props }
-                  callback={ this.handleClick }
-                  submitForm={ this.saveEvaluation }
-                  allEvaluation={ allEvaluation }
-                  items={ getProducts }
-                />
+                <>
+                  <Header items={ getProducts } />
+                  <div className="categories-div">
+                    { loaded && <CategoriesBar
+                      items={ categoriesBar }
+                      callback={ this.searchItems }
+                    /> }
+                  </div>
+                  <div className="main-div">
+                    <nav>
+                      <InitialMsg callback={ this.searchItems } condition={ searched } />
+                    </nav>
+                    <Product
+                      { ...props }
+                      callback={ this.handleClick }
+                      submitForm={ this.saveEvaluation }
+                      allEvaluation={ allEvaluation }
+                      items={ getProducts }
+                    />
+                  </div>
+                </>
               ) }
             />
             <Route path="/checkout">

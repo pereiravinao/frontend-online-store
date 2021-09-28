@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 
 export default class InitialMsg extends Component {
   constructor() {
@@ -8,12 +9,13 @@ export default class InitialMsg extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       valueQuery: '',
+      redirect: false,
     };
   }
 
-  handleChange(event) {
+  handleChange({ target }) {
     this.setState({
-      valueQuery: event.target.value,
+      valueQuery: target.value,
     });
   }
 
@@ -21,7 +23,9 @@ export default class InitialMsg extends Component {
     const { callback } = this.props;
     const { valueQuery } = this.state;
     callback('', valueQuery);
-    this.setState({ valueQuery: '' });
+    this.setState({ valueQuery: '', redirect: true }, () => {
+      this.setState({ redirect: false });
+    });
   }
 
   searchOnKeyDown = ({ keyCode }) => {
@@ -38,9 +42,10 @@ export default class InitialMsg extends Component {
   }
 
   render() {
-    const { state: { valueQuery }, props: { condition } } = this;
+    const { state: { valueQuery, redirect }, props: { condition } } = this;
     return (
       <section className="search-area">
+        { redirect && <Redirect to="/" /> }
         <div>
           <input
             type="text"
@@ -48,7 +53,7 @@ export default class InitialMsg extends Component {
             data-testid="query-input"
             value={ valueQuery }
             onChange={ this.handleChange }
-            onKeyDown={ this.searchOnKeyPress }
+            onKeyDown={ this.searchOnKeyDown }
           />
           <button
             type="button"
