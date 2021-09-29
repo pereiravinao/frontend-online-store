@@ -81,7 +81,7 @@
 
 /* Down */
 .checkout-list::-webkit-scrollbar-button:single-button:horizontal:increment {
-  border-color:transparent transparent transparent #091c15;
+  border-color: transparent transparent transparent #091c15;
   border-width: 8px;
 }
 
@@ -109,8 +109,8 @@
   border: none;
   border-radius: 10px;
   box-shadow: 0 0 2px 0.5px #091c15;
-  outline: none;
   margin: 15px;
+  outline: none;
   padding: 5px 10px;
   width: 75%;
 }
