@@ -1,0 +1,133 @@
+.checkout {
+  border: groove;
+  display: flex;
+  flex-direction: column;
+  margin: 3% auto;
+  padding: 15px;
+  width: 85%;
+}
+
+.checkout-list {
+  background-color: #87c7a794;
+  border-radius: 5px;
+  box-shadow: 0 0 1.5px 0.5px #091c15;
+  display: flex;
+  margin: 20px auto;
+  overflow-x: scroll;
+  padding: 5px;
+  width: 75%;
+}
+
+.checkout-list p b {
+  font-size: large;
+  margin: 0 5px;
+}
+
+.checkout-items {
+  align-items: center;
+  background-color: #dfece2;
+  border: solid thin rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  box-shadow: 0 0 2px #091c15;
+  display: flex;
+  flex: auto;
+  flex-flow: column;
+  justify-content: space-around;
+  margin: 5px;
+  max-width: fit-content;
+  min-width: 150px;
+  padding: 5px 3px;
+  text-align: center;
+}
+
+.checkout-items img {
+  border-radius: 5%;
+  width: 95%;
+}
+
+/* início de scrollbar-styles */
+.checkout-list::-webkit-scrollbar {
+  border: 5px solid #d8f3dc;
+  width: 15px;
+}
+
+.checkout-list::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background-color: #84a98c;
+  border: 0.05em solid #d8f3dc;
+  border-radius: 10px;
+}
+
+.checkout-list::-webkit-scrollbar-track {
+  background-color: #74c69d94;
+}
+
+.checkout-list::-webkit-scrollbar-button:single-button {
+  background-color: #74c69d94;
+  border-style: solid;
+  height: 13px;
+  width: 15px;
+}
+
+/* Up */
+.checkout-list::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  border-color: transparent #091c15 transparent transparent;
+  border-width: 8px;
+}
+
+.checkout-list::-webkit-scrollbar-button:single-button:decrement:hover {
+  border-color: transparent #2f3e46 transparent transparent;
+}
+
+/* Down */
+.checkout-list::-webkit-scrollbar-button:single-button:horizontal:increment {
+  border-color:transparent transparent transparent #091c15;
+  border-width: 8px;
+}
+
+.checkout-list::-webkit-scrollbar-button:single-button:increment:hover {
+  border-color: transparent transparent transparent #2f3e46;
+}
+
+/* fim de scrollbar-styles */
+.checkout-form {
+  background-color: #dfece2;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #091c15;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: right;
+  padding: 15px;
+}
+
+.checkout-inputs {
+  margin: auto 15px;
+  width: 45%;
+}
+
+.checkout-inputs input {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 0.5px #091c15;
+  outline: none;
+  margin: 15px;
+  padding: 5px 10px;
+  width: 75%;
+}
+
+.checkout-form button {
+  background-color: #52796f;
+  border: solid thin #091c158f;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 15px auto 10px;
+  padding: 5px;
+  width: 35%;
+}
+
+.checkout-form button:hover {
+  background-color: #6c9288;
+  box-shadow: 0 0 1px 0.3px #091c15;
+}
