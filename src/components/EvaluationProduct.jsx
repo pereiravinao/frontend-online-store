@@ -12,6 +12,18 @@ class EvaluationProduct extends React.Component {
     };
   }
 
+  handleClick = ({ target }) => {
+    const { value } = target;
+    this.setState({
+      evaluation: value,
+    });
+    document.querySelectorAll('.eval-radio-input')
+      .forEach((radio) => {
+        radio.checked = false;
+        if (radio.value <= value) radio.checked = true;
+      });
+  }
+
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
@@ -29,7 +41,7 @@ class EvaluationProduct extends React.Component {
       evaluation: '',
       comment: '',
     });
-    document.querySelectorAll('.evaluation-form input')
+    document.querySelectorAll('.eval-radio-input')
       .forEach((radio) => {
         radio.checked = false;
       });
@@ -50,46 +62,56 @@ class EvaluationProduct extends React.Component {
             placeholder="Email"
           />
           <p>{ `Sua avaliação: ${evaluation}` }</p>
-          1
-          <input
-            type="radio"
-            name="evaluation"
-            className="eval-radio-input"
-            onChange={ this.handleChange }
-            value="1"
-          />
-          2
-          <input
-            type="radio"
-            name="evaluation"
-            className="eval-radio-input"
-            onChange={ this.handleChange }
-            value="2"
-          />
-          3
-          <input
-            type="radio"
-            name="evaluation"
-            className="eval-radio-input"
-            onChange={ this.handleChange }
-            value="3"
-          />
-          4
-          <input
-            type="radio"
-            name="evaluation"
-            className="eval-radio-input"
-            onChange={ this.handleChange }
-            value="4"
-          />
-          5
-          <input
-            type="radio"
-            name="evaluation"
-            className="eval-radio-input"
-            onChange={ this.handleChange }
-            value="5"
-          />
+          <label htmlFor="radio1">
+            <input
+              type="radio"
+              id="radio1"
+              className="eval-radio-input"
+              onClick={ this.handleClick }
+              value="1"
+            />
+            <b className="eval-star" />
+          </label>
+          <label htmlFor="radio2">
+            <input
+              type="radio"
+              id="radio2"
+              className="eval-radio-input"
+              onClick={ this.handleClick }
+              value="2"
+            />
+            <b className="eval-star" />
+          </label>
+          <label htmlFor="radio3">
+            <input
+              type="radio"
+              id="radio3"
+              className="eval-radio-input"
+              onClick={ this.handleClick }
+              value="3"
+            />
+            <b className="eval-star" />
+          </label>
+          <label htmlFor="radio4">
+            <input
+              type="radio"
+              id="radio4"
+              className="eval-radio-input"
+              onClick={ this.handleClick }
+              value="4"
+            />
+            <b className="eval-star" />
+          </label>
+          <label htmlFor="radio5">
+            <input
+              type="radio"
+              id="radio5"
+              className="eval-radio-input"
+              onClick={ this.handleClick }
+              value="5"
+            />
+            <b className="eval-star" />
+          </label>
         </div>
         <div>
           <textarea

@@ -75,6 +75,16 @@
   padding: 5px 10px;
 }
 
+.whiteStar {
+  color: grey;
+  font-size: x-large;
+}
+
+.yellowStar {
+  color: goldenrod;
+  font-size: x-large;
+}
+
 .evaluation-form {
   align-items: center;
   border-radius: 5px;
@@ -91,8 +101,22 @@
   width: 100%;
 }
 
+.eval-star:before {
+  color: grey;
+  content: '★';
+  cursor: pointer;
+  font-size: x-large;
+  margin: 0 10px;
+}
+
 .evaluation-form .eval-radio-input {
+  display: none;
   margin-right: 15px;
+  opacity: 0;
+}
+
+.evaluation-form .eval-radio-input:checked ~ .eval-star:before {
+  color: goldenrod;
 }
 
 .evaluation-form textarea {
