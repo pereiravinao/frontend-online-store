@@ -6,6 +6,7 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonAddCart from '../components/ButtonAddCart';
 import EvaluationProduct from '../components/EvaluationProduct';
 import Loading from '../components/Loading';
+import EvalStars from '../components/EvaluationStars';
 
 class Product extends React.Component {
   constructor() {
@@ -26,7 +27,6 @@ class Product extends React.Component {
     const { match: { params: { id, categoryId } } } = this.props;
     const result = await getProductsFromCategoryAndQuery(categoryId, '');
     const productDetails = result.results.filter((product) => product.id === id);
-    console.log(result, productDetails);
     this.setState({
       prodDetails: productDetails[0] || [],
     }, () => this.setState({ loading: true }));
@@ -83,11 +83,11 @@ class Product extends React.Component {
               <h3>Avaliações</h3>
               {
                 evaluations.length > 0
-                  ? evaluations[0].comments.map((ev) => (
-                    <div key={ ev.length } className="eval-coments">
-                      <h4>{ ev.email }</h4>
-                      <p>{ ev.comment }</p>
-                      <p>{ `Nota: ${ev.evaluation}` }</p>
+                  ? evaluations[0].comments.map(({ email, comment, evaluation }, ind) => (
+                    <div key={ `${ind}${evaluation}` } className="eval-coments">
+                      <h4>{ email }</h4>
+                      <p>{ comment }</p>
+                      <EvalStars evaluation={ evaluation } />
                     </div>
                   )) : (
                     <div className="eval-coments">

@@ -1,15 +1,9 @@
-/* .root {
-  align-items: flex-start;
-  display: flex;
-  justify-content: center;
-} */
-
 .cart-items {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%; /* Adicionei esta linha */
+  width: 100%;
 }
 
 .cart-items-title {
@@ -71,11 +65,6 @@
 .text-price-item {
   font-size: 1.5em;
 }
-
-/* .separator li {
-  background-color: #cad2c5;
-  padding: 0.5em 1em;
-} */
 
 .cart-empty-message {
   color: #52796f;

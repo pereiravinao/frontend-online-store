@@ -188,6 +188,7 @@ class App extends Component {
               ) }
             />
             <Route path="/checkout">
+              <Header items={ getProducts } />
               <Checkout cartItems={ getProducts } />
             </Route>
           </Switch>
